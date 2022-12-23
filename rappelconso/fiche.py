@@ -1,6 +1,8 @@
 from dataclasses import dataclass
 from typing import Optional
 
+from categorie import Categorie, categorie
+
 @dataclass
 class Fiche:
     """Fiche rappel concernant un produit."""
@@ -21,6 +23,33 @@ class Fiche:
     lien_vers_la_fiche_rappel: str
     liens_vers_les_images: str
 
+    @property
+    def categorie(self) -> Categorie:
+        """Catégorie du produit"""
+        if not hasattr(self, "__categorie"):
+            self.__categorie = categorie(self.categorie_de_produit)
+        return self.__categorie
+
+    @property
+    def hashtags(self) -> list[str]:
+        """Liste de hashtags (sans #)."""
+        if not hasattr(self, "__hashtag"):
+            self.__hashtags = [self.categorie.hashtag]
+        return self.__hashtags
+
+    @property
+    def cw(self) -> str | None:
+        """Content warning de l'article (None si l'article n'est pas
+        sensible."""
+        if self.categorie.sensible:
+            return self.categorie.nom
+        else:
+            return None
+
+    def printable_hashtags(self) -> str:
+        """Liste des hashtags avec # séparés par des espaces."""
+        return " ".join(map(lambda h: "#" + h, self.hashtags))
+
     def __str__(self) -> str:
         return f"#RappelProduit\n" \
             f"{self.nom_de_la_marque_du_produit}\n\n" \
@@ -28,4 +57,6 @@ class Fiche:
             f"Risques : {self.risques_encourus_par_le_consommateur}\n\n" \
             \
             f"Motif : {self.motif_du_rappel}\n" \
-            f"{self.lien_vers_la_fiche_rappel}"
+            f"{self.lien_vers_la_fiche_rappel}\n\n" \
+            \
+            f"{self.printable_hashtags()}"
