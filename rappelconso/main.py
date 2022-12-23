@@ -1,6 +1,6 @@
 import sys
 from flux import Flux
-from rappelconso.mastodon import Mastodon
+from mastodon import Mastodon
 from draft import Draft
 
 
