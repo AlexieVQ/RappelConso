@@ -4,6 +4,7 @@
         "beautifulsoup",
         "categorie",
         "charrefs",
+        "dotenv",
         "Equipements",
         "feedparser",
         "geographique",
