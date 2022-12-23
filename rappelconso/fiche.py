@@ -31,20 +31,32 @@ class Fiche:
         return self.__categorie
 
     @property
+    def sous_categorie(self) -> Categorie:
+        """Sous-catégorie du produit"""
+        if not hasattr(self, "__sous_categorie"):
+            self.__sous_categorie = categorie(self.sous_categorie_de_produit)
+        return self.__sous_categorie
+
+    @property
     def hashtags(self) -> list[str]:
         """Liste de hashtags (sans #)."""
         if not hasattr(self, "__hashtag"):
-            self.__hashtags = [self.categorie.hashtag]
+            self.__hashtags = list(filter(lambda c: c is not None, [
+                self.categorie.hashtag,
+                self.sous_categorie.hashtag,
+            ]))
         return self.__hashtags
 
     @property
     def cw(self) -> str | None:
         """Content warning de l'article (None si l'article n'est pas
         sensible."""
-        if self.categorie.sensible:
-            return self.categorie.nom
-        else:
-            return None
+        if not hasattr(self, "__cw"):
+            if self.categorie.sensible or self.sous_categorie.sensible:
+                self.__cw = self.categorie.nom + ", " + self.sous_categorie.nom
+            else:
+                self.__cw = None
+        return self.__cw
 
     def printable_hashtags(self) -> str:
         """Liste des hashtags avec # séparés par des espaces."""
