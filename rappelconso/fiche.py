@@ -1,6 +1,9 @@
 from dataclasses import dataclass
 from typing import Optional
 
+from bs4 import BeautifulSoup
+import requests
+
 from categorie import Categorie, categorie
 
 @dataclass
@@ -22,6 +25,15 @@ class Fiche:
     date_debut_fin_de_commercialisation: str
     lien_vers_la_fiche_rappel: str
     liens_vers_les_images: str
+
+    @property
+    def titre(self) -> str:
+        """Titre de la fiche"""
+        if not hasattr(self, "__titre"):
+            page = requests.get(self.lien_vers_la_fiche_rappel).text
+            dom = BeautifulSoup(page, "html.parser")
+            self.__titre = dom.find("p", class_="product-main-title").text
+        return self.__titre
 
     @property
     def categorie(self) -> Categorie:
@@ -64,7 +76,7 @@ class Fiche:
 
     def __str__(self) -> str:
         return f"#RappelProduit\n" \
-            f"{self.nom_de_la_marque_du_produit}\n\n" \
+            f"{self.titre} - {self.nom_de_la_marque_du_produit}\n\n" \
             \
             f"Risques : {self.risques_encourus_par_le_consommateur}\n\n" \
             \
