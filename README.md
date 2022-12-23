@@ -5,4 +5,5 @@ Mastodon.
 
 ## Dépendances
 
-- [`feedparser`](https://github.com/kurtmckee/feedparser)
+- [`requests`](https://requests.readthedocs.io/en/latest/)
+- [`jsons`](https://github.com/ramonhagenaars/jsons)
