@@ -7,11 +7,13 @@
         "Equipements",
         "feedparser",
         "geographique",
+        "idempotency",
         "jsons",
         "modalites",
         "modeles",
         "oeufs",
         "rappelconso",
-        "rappelguid"
+        "rappelguid",
+        "reponse"
     ]
 }
