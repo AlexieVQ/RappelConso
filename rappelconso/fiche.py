@@ -25,6 +25,7 @@ class Fiche:
     date_debut_fin_de_commercialisation: str
     lien_vers_la_fiche_rappel: str
     liens_vers_les_images: str
+    """Les liens sont séparés par des espaces."""
 
     @property
     def titre(self) -> str:

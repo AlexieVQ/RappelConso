@@ -1,5 +1,5 @@
+import logging
 from typing import Any
-import jsons
 import requests
 from requests import HTTPError, Response
 from draft import Draft
@@ -19,8 +19,16 @@ class Mastodon:
 
     def post(self, draft: Draft) -> None:
         """Publie le brouillon donné. Gère l'upload de l'image."""
-        id_image = self.upload_image(draft.fiche.liens_vers_les_images)
-        draft.body['media_ids[]'] = id_image
+        medias_ids = []
+        for lien in draft.fiche.liens_vers_les_images.split(" "):
+            try:
+                medias_ids.append(self.upload_image(lien))
+            except HTTPError as e:
+                logging.warning("[Fiche %s] Erreur HTTP lors de la requête de " \
+                    "l'image %s : %s (image ignorée)", draft.fiche.rappelguid,
+                    lien, e)
+        if len(medias_ids) > 0:
+            draft.body['media_ids[]'] = medias_ids
         reponse = requests.post(
             f"https://{self.__domain}/api/v1/statuses",
             data=draft.body,

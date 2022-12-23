@@ -1,6 +1,3 @@
-from typing import Optional
-from attr import dataclass
-
 from fiche import Fiche
 
 
@@ -13,6 +10,8 @@ class Draft:
             "status": fiche.corps(),
             "sensitive": fiche.cw is not None,
             "spoiler_text": fiche.cw,
+            "language": "fr",
+            "visibility": "private",
         }
 
     @property
