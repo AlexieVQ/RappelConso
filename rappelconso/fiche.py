@@ -74,7 +74,8 @@ class Fiche:
         """Liste des hashtags avec # séparés par des espaces."""
         return " ".join(map(lambda h: "#" + h, self.hashtags))
 
-    def __str__(self) -> str:
+    def corps(self) -> str:
+        """Corps du statut à poster."""
         return f"#RappelProduit\n" \
             f"{self.titre} - {self.nom_de_la_marque_du_produit}\n\n" \
             \
@@ -84,3 +85,6 @@ class Fiche:
             f"{self.lien_vers_la_fiche_rappel}\n\n" \
             \
             f"{self.printable_hashtags()}"
+
+    def __str__(self) -> str:
+        return self.corps()
