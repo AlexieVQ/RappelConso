@@ -56,7 +56,7 @@ class Mastodon:
     def __raise_error(reponse: Response, data: Any | None = None) -> None:
         """Lève une exception si la réponse est négative."""
         if not reponse.ok:
-            message = reponse.json()['error']
+            message = f"{reponse.status_code} : {reponse.json()['error']}"
             if data is not None:
                 message += f" ({data})"
             raise HTTPError(message)
