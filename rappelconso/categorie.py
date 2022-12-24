@@ -33,8 +33,8 @@ __add("Vêtements, Mode, EPI")
 __add("Sports-loisirs", "Sports")
 __add("Maison-Habitat", "Maison")
 __add("Appareils électriques, Outils", "Outils")
-__add("Equipements de communication", "Communication")
-__add("Autres", "Autres")
+__add("Equipements de communication")
+__add("Autres")
 
 # Sous-catégories
 # Alimentaire
