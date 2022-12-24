@@ -3,6 +3,7 @@ from typing import Any
 import requests
 from requests import HTTPError, Response
 from draft import Draft
+from fiche import Fiche
 
 
 class Mastodon:
@@ -22,7 +23,7 @@ class Mastodon:
         medias_ids = []
         for lien in draft.fiche.liens_vers_les_images.split(" "):
             try:
-                medias_ids.append(self.upload_image(lien))
+                medias_ids.append(self.upload_image(lien), draft.fiche)
             except HTTPError as e:
                 logging.warning("[Fiche %s] Erreur HTTP lors de la requête de " \
                     "l'image %s : %s (image ignorée)", draft.fiche.rappelguid,
@@ -39,7 +40,7 @@ class Mastodon:
         )
         Mastodon.__raise_error(reponse, draft.fiche)
 
-    def upload_image(self, lien: str) -> str:
+    def upload_image(self, lien: str, fiche: Fiche) -> str:
         """Upload l'image du lien donné sur le compte Mastodon. Retourne son
         id.
         """
@@ -47,7 +48,12 @@ class Mastodon:
         image_rep.raise_for_status()
         reponse = requests.post(
             f"https://{self.__domain}/api/v2/media",
-            files={ "file": image_rep.raw },
+            files={
+                "file": image_rep.raw,
+                "description": f"{fiche.titre} - " \
+                    f"{fiche.nom_de_la_marque_du_produit} - "\
+                    f"{fiche.noms_des_modeles_ou_references}",
+            },
             headers={ "Authorization": "Bearer " + self.__bearer_token },
         )
         Mastodon.__raise_error(reponse)
