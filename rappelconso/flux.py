@@ -1,7 +1,7 @@
 import jsons
 import requests
 from fiche import Fiche
-from cache import Cache
+from historique import Historique
 
 class Flux:
     """Flux des fiches de rappel produit depuis l'API du Ministère de
@@ -11,9 +11,9 @@ class Flux:
     chaque mise à jour.
     """
 
-    def __init__(self, url: str, cache: Cache) -> None:
+    def __init__(self, url: str, historique: Historique) -> None:
         self.__url = url
-        self.__cache = cache
+        self.__historique = historique
 
     def update(self) -> list[Fiche]:
         """Récupère les nouvelles fiches publiées depuis la dernière mise à
@@ -23,6 +23,6 @@ class Flux:
         fiches = []
         for record in dataset['records']:
             guid: str = record['fields']['rappelguid']
-            if guid not in self.__cache:
+            if guid not in self.__historique:
                 fiches.append(jsons.load(record['fields'], Fiche))
         return fiches
