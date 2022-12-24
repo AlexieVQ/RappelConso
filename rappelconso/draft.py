@@ -8,11 +8,12 @@ class Draft:
         self.fiche = fiche
         self.body = {
             "status": fiche.corps(),
-            "sensitive": fiche.cw is not None,
             "spoiler_text": fiche.cw,
             "language": "fr",
             "visibility": "private",
         }
+        if fiche.cw is not None:
+            self.body["sensitive"] = "true"
 
     @property
     def idempotency_key(self) -> str:
