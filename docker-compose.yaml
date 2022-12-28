@@ -1,0 +1,8 @@
+services:
+  rappelconso:
+    build: .
+    environment:
+      - RAPPELCONSO_BEARER_TOKEN_FILE=/run/secrets/rappelconso_bearer_token
+    volumes:
+      - ./historique.txt:/var/rappelconso/historique.txt:rw
+      - ./bearer_token.txt:/run/secrets/rappelconso_bearer_token:ro

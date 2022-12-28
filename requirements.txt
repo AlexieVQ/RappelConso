@@ -1,0 +1,4 @@
+requests
+jsons
+beautifulsoup4
+python-dotenv
