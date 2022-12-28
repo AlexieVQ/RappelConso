@@ -23,7 +23,7 @@ class Mastodon:
         medias_ids = []
         for lien in draft.fiche.liens_vers_les_images.split(" "):
             try:
-                medias_ids.append(self.upload_image(lien), draft.fiche)
+                medias_ids.append(self.upload_image(lien, draft.fiche))
             except HTTPError as e:
                 logging.warning("[Fiche %s] Erreur HTTP lors de la requête de " \
                     "l'image %s : %s (image ignorée)", draft.fiche.rappelguid,
@@ -50,6 +50,8 @@ class Mastodon:
             f"https://{self.__domain}/api/v2/media",
             files={
                 "file": image_rep.raw,
+            },
+            data={
                 "description": f"{fiche.titre} - " \
                     f"{fiche.nom_de_la_marque_du_produit} - "\
                     f"{fiche.noms_des_modeles_ou_references}",
