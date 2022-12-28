@@ -10,7 +10,7 @@ class Draft:
             "status": fiche.corps(),
             "spoiler_text": fiche.cw,
             "language": "fr",
-            "visibility": "private",
+            "visibility": "public",
         }
         if fiche.cw is not None:
             self.body["sensitive"] = "true"
