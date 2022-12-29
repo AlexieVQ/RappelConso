@@ -21,7 +21,7 @@ class Mastodon:
     def post(self, draft: Draft) -> None:
         """Publie le brouillon donné. Gère l'upload de l'image."""
         medias_ids = []
-        for lien in draft.fiche.liens_vers_les_images.split(" "):
+        for lien in draft.fiche.liens_vers_les_images.split(" ")[0:4]:
             try:
                 medias_ids.append(self.upload_image(lien, draft.fiche))
             except HTTPError as e:
