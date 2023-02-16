@@ -22,7 +22,7 @@ class Fiche:
     modalites_de_compensation: str
     distributeurs: str
     zone_geographique_de_vente: Optional[str]
-    date_debut_fin_de_commercialisation: str
+    date_debut_fin_de_commercialisation: Optional[str]
     lien_vers_la_fiche_rappel: str
     liens_vers_les_images: str
     """Les liens sont séparés par des espaces."""
