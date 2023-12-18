@@ -19,8 +19,8 @@ class Fiche:
     motif_du_rappel: str
     risques_encourus_par_le_consommateur: str
     conduites_a_tenir_par_le_consommateur: Optional[str]
-    modalites_de_compensation: str
-    distributeurs: str
+    modalites_de_compensation: Optional[str]
+    distributeurs: Optional[str]
     zone_geographique_de_vente: Optional[str]
     date_debut_fin_de_commercialisation: Optional[str]
     lien_vers_la_fiche_rappel: str
