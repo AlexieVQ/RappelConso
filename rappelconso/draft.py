@@ -9,7 +9,6 @@ class Draft:
         self.body = {
             "status": fiche.corps(),
             # "spoiler_text": fiche.cw,
-            "sensitive": fiche.cw is not None,
             "language": "fr",
             "visibility": "public",
         }
