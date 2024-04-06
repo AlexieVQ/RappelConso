@@ -11,7 +11,7 @@ class Fiche:
     """Fiche rappel concernant un produit."""
 
     rappelguid: str
-    nom_de_la_marque_du_produit: str
+    nom_de_la_marque_du_produit: Optional[str]
     noms_des_modeles_ou_references: str
     categorie_de_produit: str
     sous_categorie_de_produit: str
@@ -77,8 +77,13 @@ class Fiche:
 
     def corps(self) -> str:
         """Corps du statut à poster."""
-        return f"#RappelProduit\n" \
-            f"{self.titre} - {self.nom_de_la_marque_du_produit}\n\n" \
+        corps = f"#RappelProduit\n" \
+            f"{self.titre}"
+
+        if self.nom_de_la_marque_du_produit is not None:
+            corps += "- " + self.nom_de_la_marque_du_produit
+
+        corps += "\n\n" \
             \
             f"Risques : {self.risques_encourus_par_le_consommateur}\n\n" \
             \
@@ -86,6 +91,8 @@ class Fiche:
             f"{self.lien_vers_la_fiche_rappel}\n\n" \
             \
             f"{self.printable_hashtags()}"
+
+        return corps
 
     def __str__(self) -> str:
         return self.corps()
