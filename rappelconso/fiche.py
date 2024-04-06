@@ -81,7 +81,7 @@ class Fiche:
             f"{self.titre}"
 
         if self.nom_de_la_marque_du_produit is not None:
-            corps += "- " + self.nom_de_la_marque_du_produit
+            corps += " - " + self.nom_de_la_marque_du_produit
 
         corps += "\n\n" \
             \
